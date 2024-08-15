@@ -21,11 +21,12 @@ else
 }
 else
 {
+  <p class="fw-bold">Sweets:</p>
   <ul>
-  @foreach (Sweet sweet in ViewBag.items)
-  {
-    <li>@Html.ActionLink(@sweet.Name.ToString(), "Details", "Sweets", new { id = @sweet.SweetId })</li>
-  }
+    @foreach (Sweet sweet in ViewBag.items)
+    {
+      <li>@Html.ActionLink(@sweet.Name.ToString(), "Details", "Sweets", new { id = @sweet.SweetId })</li>
+    }
 </ul>
 }
 @if (ViewBag.tags.Count == 0)
@@ -34,8 +35,9 @@ else
 }
 else
 {
+  <p class="fw-bold">Flavors:</p>
   <ul>
-  @foreach (Flavor flavor in ViewBag.flavor)
+  @foreach (Flavor flavor in ViewBag.tags)
   {
     <li>@Html.ActionLink(@flavor.Name.ToString(), "Details", "Flavors", new { id = @flavor.FlavorId })</li>
   }
