@@ -22,14 +22,10 @@ namespace SweetTreats.Controllers
 			_userManager = userManager;
 			_db = db;
 		}
-		public async Task<ActionResult> Index()
+		public ActionResult Index()
 		{
-			string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-			List<Flavor> userFlavors = _db.Flavors
-				.Where(entry => entry.User.Id == currentUser.Id)
-				.ToList();
-			return View(userFlavors);
+			List<Flavor> flavors = _db.Flavors.ToList();
+			return View(flavors);
 		}
 		
 		[AllowAnonymous]

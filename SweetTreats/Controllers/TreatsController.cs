@@ -22,14 +22,12 @@ namespace SweetTreats.Controllers
 			_db = db;
 		}
 		
-		public async Task<ActionResult> Index(string sort, string searchString)
+		public ActionResult Index(string sort, string searchString)
 		{
 			ViewBag.NameSortParm = string.IsNullOrEmpty(sort) ? "name_desc" : "";
 			ViewBag.PriceSortParm = sort == "price" ? "price_desc" : "price";
 			
-			string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-			var userSweets = from r in _db.Sweets.Where(entry => entry.User.Id == currentUser.Id)
+			var userSweets = from r in _db.Sweets
 												select r;
 			if (!string.IsNullOrEmpty(searchString))
 			{
