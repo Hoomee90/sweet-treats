@@ -1,0 +1,47 @@
+@{
+  Layout = "_Layout";
+}
+
+@using SweetTreats.Models;
+
+<h1>Sweet Treats</h1>
+<hr>
+@if (User.Identity.IsAuthenticated)
+{
+  <h4>Welcome @User.Identity.Name</h4>
+}
+else
+{
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to create and edit sweets.</p>
+}
+
+@if (ViewBag.items.Count == 0)
+{
+  <p>No sweets have been added yet!</p>
+}
+else
+{
+  <ul>
+  @foreach (Sweet sweet in ViewBag.items)
+  {
+    <li>@Html.ActionLink(@sweet.Name.ToString(), "Details", "Sweets", new { id = @sweet.SweetId })</li>
+  }
+</ul>
+}
+@if (ViewBag.tags.Count == 0)
+{
+  <p>No flavors have been added yet!</p>
+}
+else
+{
+  <ul>
+  @foreach (Flavor flavor in ViewBag.flavor)
+  {
+    <li>@Html.ActionLink(@flavor.Name.ToString(), "Details", "Flavors", new { id = @flavor.FlavorId })</li>
+  }
+</ul>
+}
+
+<p>@Html.ActionLink("Manage sweets", "Index", "Sweets")</p>
+<p>@Html.ActionLink("Manage flavors", "Index", "Flavors")</p>
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
