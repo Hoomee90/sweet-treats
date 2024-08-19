@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreats.Models.Sweet
+
+<h4>Edit Sweet</h4>
+
+<h3>@Html.DisplayFor(model => model.Name)</h3>
+
+@if(!ViewData.ModelState.IsValid) 
+{
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
+}
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.SweetId);
+
+  @Html.LabelFor(model => model.Name);
+  @Html.EditorFor(model => model.Name);
+
+  @Html.LabelFor(model => model.Description);
+  @Html.TextAreaFor(model => model.Description, 3, 24, null);
+
+  @Html.LabelFor(model => model.Price);
+  @Html.EditorFor(model => model.Price);
+
+  <input type="submit" value="Save">
+}
+
+<p>@Html.ActionLink("Back to sweet list", "Index")</p>
