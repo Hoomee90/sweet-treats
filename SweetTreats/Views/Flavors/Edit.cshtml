@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreats.Models.Flavor
+
+<h4>Edit Flavor</h4>
+
+<h4>@Html.DisplayFor(model => model.Name)</h4>
+
+@if(!ViewData.ModelState.IsValid) 
+{
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
+}
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.FlavorId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+
+  <input type="submit" value="Save">
+}
+
+<p>@Html.ActionLink("Back to flavor list", "Index")</p>
