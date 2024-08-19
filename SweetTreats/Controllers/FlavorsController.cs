@@ -110,12 +110,12 @@ namespace SweetTreats.Controllers
 		}
 		
 		[HttpPost]
-		public ActionResult DeleteJoin(int joinId)
+		public ActionResult DeleteJoin(int joinId, int flavorId)
 		{
 			SweetFlavor joinEntry = _db.SweetFlavors.FirstOrDefault(entry => entry.SweetFlavorId == joinId);
 			_db.SweetFlavors.Remove(joinEntry);
 			_db.SaveChanges();
-			return RedirectToAction("Index");
+			return RedirectToAction("Details", new { id = flavorId });
 		}
 	}
 }

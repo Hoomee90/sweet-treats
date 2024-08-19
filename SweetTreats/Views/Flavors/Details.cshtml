@@ -1,0 +1,47 @@
+@{
+  Layout = "_Layout";
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+  <style>
+    input {
+      display:none;
+    }
+  </style>
+}
+
+@using SweetTreats.Models;
+@model SweetTreats.Models.Flavor;
+
+<h3>@Html.DisplayFor(model => model.Name)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>No sweets have this flavor</p>
+}
+else
+{
+  <h4>Flavoring:</h4>
+  <ul>
+  @foreach(SweetFlavor join in Model.JoinEntities)
+  {
+    <li>@join.Sweet.Name</li>
+    @using (Html.BeginForm("DeleteJoin", "Flavors"))
+    {
+      @Html.Hidden("joinId", join.SweetFlavorId)
+              @Html.Hidden("flavorId", Model.FlavorId)
+      <input type="submit" value="Remove">
+    }
+  }
+  </ul>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Add to a sweet", "AddSweet", new { id = Model.FlavorId })</p>
+  <p>@Html.ActionLink("Edit", "Edit", new { id = Model.FlavorId })</p>
+  <p>@Html.ActionLink("Delete", "Delete", new { id = Model.FlavorId })</p>
+  <p>@Html.ActionLink("Back to flavor list", "Index")</p>
+}
+<p>@Html.ActionLink("Back home", "Index", "Home")</p>
